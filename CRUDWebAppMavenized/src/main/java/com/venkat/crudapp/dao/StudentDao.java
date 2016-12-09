@@ -3,7 +3,11 @@ package com.venkat.crudapp.dao;
 import java.util.List;
 
 import com.venkat.crudapp.entity.Student;
-
+/*
+ * 
+ * @author user
+ *  Interface for Student Dao
+ */
 public interface StudentDao {
 	public void addStudent(Student student);
 	public void updateStudent(Student student);
