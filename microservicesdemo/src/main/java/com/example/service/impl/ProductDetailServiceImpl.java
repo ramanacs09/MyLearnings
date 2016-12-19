@@ -7,14 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.entity.ProductDetail;
-import com.example.repository.ProductDetailRepository;
+import com.example.repository.ProductDetailsRepository;
 import com.example.service.ProductDetailService;
 
 @Service
 public class ProductDetailServiceImpl implements ProductDetailService{
 
 	@Autowired
-	private ProductDetailRepository repository;
+	private ProductDetailsRepository repository;
+	
+	/*@Autowired
+	private ProductSearchRepository searchRepository;*/
 	
 	@Override
 	public Collection<ProductDetail> getAllProductDetails() {
@@ -28,7 +31,7 @@ public class ProductDetailServiceImpl implements ProductDetailService{
 
 	@Override
 	public List<ProductDetail> getSearchedProductDetails(String searchTerm) {
-		return repository.search(searchTerm);
+		return repository.searchProductDetails(searchTerm);
 	}
 	
 	

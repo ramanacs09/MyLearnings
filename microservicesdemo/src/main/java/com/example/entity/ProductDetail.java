@@ -1,9 +1,10 @@
 package com.example.entity;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection="productDetail")
 public class ProductDetail {
 	
 	@Id
