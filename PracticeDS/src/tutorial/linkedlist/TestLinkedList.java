@@ -125,8 +125,19 @@ class LinkedList {
 			currX = currX.next;
 		}
 		
+		if(currX == null){
+			System.out.println("First item is not found in the list");
+			return;
+		}
 		
+		while(currY != null && currY.data != lastItem){
+			prevY = currY;
+			currY = currY.next;
+		}
 		
+		if(currY == null){
+			
+		}
 	}
 }
 
