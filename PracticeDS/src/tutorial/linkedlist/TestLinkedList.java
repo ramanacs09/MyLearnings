@@ -11,7 +11,7 @@ class LinkedList {
 		}
 	}
 
-	private Node headPtr;
+	Node headPtr;
 
 	private Node createNewNode(int data) {
 		return new Node(data);
@@ -169,28 +169,74 @@ class LinkedList {
 		}
 		headPtr = prevPtr;
 	}
+
+	public Node reverse(Node head, Node last) {
+		Node curr = head;
+		Node prev = null;
+		Node next = null;
+		while (curr != last) {
+			next = curr.next;
+			curr.next = prev;
+			prev = curr;
+			curr = next;
+		}
+		return prev;
+	}
+
+	public void reverseInSets(int k) {
+		Node curr = headPtr;
+		Node last = null;
+		Node temp = null;
+		int count = 0;
+		while (curr != null && count < k) {
+			count++;
+			last = curr;
+			curr = curr.next;
+		}
+	}
+
+	public Node reverseLinkedListInSets(Node head, int k) {
+		Node curr = head;
+		Node next = null;
+		Node prev = null;
+		int count = 0;
+		while (curr != null && count < k) {
+			next = curr.next;
+			curr.next = prev;
+			prev = curr;
+			curr = next;
+			count++;
+		}
+		if (next != null) {
+			head.next = reverseLinkedListInSets(next, k);
+		}
+
+		return prev;
+	}
 }
 
 public class TestLinkedList {
 	public static void main(String[] args) {
 		LinkedList list = new LinkedList();
 		list.insert(15);
+		list.insert(14);
+		list.insert(13);
+		list.insert(12);
+		list.insert(11);
 		list.insert(10);
-		list.insert(5);
 
 		list.print();
 
-		list.reverseLinkedList();
+		list.headPtr = list.reverseLinkedListInSets(list.headPtr, 3);
 		list.print();
-		System.out.println("The linked list length is:" + list.length());
-		list.swapNodesWithoutSwappingData(14, 11);
-		list.print();
-		list.append(16);
-		list.print();
-		list.deleteNodeAtPosition(6);
-		list.print();
-		list.deleteNode(15);
-		list.print();
+
+		/*
+		 * list.reverseLinkedList(); list.print();
+		 * System.out.println("The linked list length is:" + list.length());
+		 * list.swapNodesWithoutSwappingData(14, 11); list.print();
+		 * list.append(16); list.print(); list.deleteNodeAtPosition(6);
+		 * list.print(); list.deleteNode(15); list.print();
+		 */
 
 	}
 }
