@@ -115,7 +115,7 @@ class LinkedList {
 	
 	public void swapNodesWithoutSwappingData(int firstItem, int lastItem){
 		Node currX = headPtr,currY = headPtr;
-		Node prevX, prevY = null;
+		Node prevX = null, prevY = null;
 		if(firstItem == lastItem){
 			System.out.println("Data to be swapped are same");
 			return;
@@ -136,8 +136,25 @@ class LinkedList {
 		}
 		
 		if(currY == null){
-			
+			System.out.println("Last item is not found in the list");
+			return;
 		}
+		
+		if(prevX != null){
+			prevX.next = currY;
+		} else{
+			headPtr = currY;
+		}
+		
+		if(prevY != null){
+			prevY.next = currX;
+		} else{
+			headPtr = currX;
+		}
+		
+		Node temp = currY.next;
+		currY.next = currX.next;
+		currX.next = temp;
 	}
 }
 
@@ -151,7 +168,11 @@ public class TestLinkedList {
 		list.insert(14);
 		list.insert(15);
 
-		System.out.println(list.length());
+		list.print();
+		
+		System.out.println("The linked list length is:"+list.length());
+		
+		list.swapNodesWithoutSwappingData(14, 11);
 		
 		list.print();
 
