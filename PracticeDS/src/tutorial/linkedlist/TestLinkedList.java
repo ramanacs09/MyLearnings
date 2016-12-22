@@ -13,7 +13,7 @@ class LinkedList {
 
 	private Node headPtr;
 
-	public Node createNewNode(int data) {
+	private Node createNewNode(int data) {
 		return new Node(data);
 
 	}
@@ -34,7 +34,7 @@ class LinkedList {
 		System.out.println();
 	}
 
-	public Node getCurrPtrPosition() {
+	public Node getHeadPtr() {
 		return headPtr;
 	}
 
@@ -78,7 +78,7 @@ class LinkedList {
 			currPtr = currPtr.next;
 		}
 		// This case occurs if the node to be deleted is headPtr
-		if (currPtr == null){
+		if (currPtr == null) {
 			System.out.println("No key is present to delete");
 			return;
 		}
@@ -86,103 +86,111 @@ class LinkedList {
 		prevNode.next = currPtr.next;
 
 	}
-	
-	public void deleteNodeAtPosition(int pos){
+
+	public void deleteNodeAtPosition(int pos) {
 		int count = 0;
 		Node currPtr = headPtr;
-		if(pos == 0){
+		if (pos == 0) {
 			headPtr = currPtr.next;
 			return;
 		}
-		while(currPtr != null && count < pos-1){
+		while (currPtr != null && count < pos - 1) {
 			count++;
 			currPtr = currPtr.next;
 		}
-		
+
 		currPtr.next = currPtr.next.next;
 		return;
 	}
-	
-	public int length(){
+
+	public int length() {
 		int count = 0;
 		Node currPtr = headPtr;
-		while(currPtr != null){
+		while (currPtr != null) {
 			++count;
 			currPtr = currPtr.next;
 		}
 		return count;
 	}
-	
-	public void swapNodesWithoutSwappingData(int firstItem, int lastItem){
-		Node currX = headPtr,currY = headPtr;
+
+	public void swapNodesWithoutSwappingData(int firstItem, int lastItem) {
+		Node currX = headPtr, currY = headPtr;
 		Node prevX = null, prevY = null;
-		if(firstItem == lastItem){
+		if (firstItem == lastItem) {
 			System.out.println("Data to be swapped are same");
 			return;
 		}
-		while(currX != null && currX.data != firstItem){
+		while (currX != null && currX.data != firstItem) {
 			prevX = currX;
 			currX = currX.next;
 		}
-		
-		if(currX == null){
+
+		if (currX == null) {
 			System.out.println("First item is not found in the list");
 			return;
 		}
-		
-		while(currY != null && currY.data != lastItem){
+
+		while (currY != null && currY.data != lastItem) {
 			prevY = currY;
 			currY = currY.next;
 		}
-		
-		if(currY == null){
+
+		if (currY == null) {
 			System.out.println("Last item is not found in the list");
 			return;
 		}
-		
-		if(prevX != null){
+
+		if (prevX != null) {
 			prevX.next = currY;
-		} else{
+		} else {
 			headPtr = currY;
 		}
-		
-		if(prevY != null){
+
+		if (prevY != null) {
 			prevY.next = currX;
-		} else{
+		} else {
 			headPtr = currX;
 		}
-		
+
 		Node temp = currY.next;
 		currY.next = currX.next;
 		currX.next = temp;
+	}
+
+	public void reverseLinkedList() {
+		Node currPtr = headPtr;
+		Node prevPtr = null;
+		Node nextPtr = null;
+		while (currPtr != null) {
+			nextPtr = currPtr.next;
+			currPtr.next = prevPtr;
+			prevPtr = currPtr;
+			currPtr = nextPtr;
+		}
+		headPtr = prevPtr;
 	}
 }
 
 public class TestLinkedList {
 	public static void main(String[] args) {
 		LinkedList list = new LinkedList();
-		list.insert(10);
-		list.insert(11);
-		list.insert(12);
-		list.insert(13);
-		list.insert(14);
 		list.insert(15);
+		list.insert(10);
+		list.insert(5);
 
 		list.print();
-		
-		System.out.println("The linked list length is:"+list.length());
-		
+
+		list.reverseLinkedList();
+		list.print();
+		System.out.println("The linked list length is:" + list.length());
 		list.swapNodesWithoutSwappingData(14, 11);
-		
 		list.print();
-
 		list.append(16);
 		list.print();
-		
 		list.deleteNodeAtPosition(6);
 		list.print();
-
 		list.deleteNode(15);
 		list.print();
+
 	}
 }
