@@ -170,7 +170,7 @@ class LinkedList {
 		headPtr = prevPtr;
 	}
 
-	public Node reverse(Node head, Node last) {
+	/*public Node reverse(Node head, Node last) {
 		Node curr = head;
 		Node prev = null;
 		Node next = null;
@@ -188,13 +188,16 @@ class LinkedList {
 		Node last = null;
 		Node temp = null;
 		int count = 0;
+		int length = length();
+		
+		
 		while (curr != null && count < k) {
 			count++;
 			last = curr;
 			curr = curr.next;
 		}
 	}
-
+*/
 	public Node reverseLinkedListInSets(Node head, int k) {
 		Node curr = head;
 		Node next = null;
@@ -213,22 +216,61 @@ class LinkedList {
 
 		return prev;
 	}
+	
+	public Node addTwoLinkedLists(LinkedList l1, LinkedList l2){
+		Node head1 = l1.headPtr;
+		Node head2 = l2.headPtr;
+		Node prev = null;
+		Node finalHead = null;
+		Node tempPtr = null;
+		int carry = 0;
+		while(head1!= null || head2 != null){
+			int sumValue = (head1 != null ? head1.data:0) + (head2 != null?head2.data:0) + carry;
+			int value = sumValue % 10;
+			carry = value /10;
+			tempPtr = createNewNode(value);
+			if(finalHead == null){
+				finalHead = tempPtr;
+			} else{
+				prev.next = tempPtr;
+			}
+			prev = tempPtr;
+			if(head1 != null){
+				head1 = head1.next;
+			}
+			if(head2 != null){
+				head2 = head2.next;
+			}
+		}
+		
+		if(carry > 0){
+			tempPtr.next = createNewNode(carry);
+		}
+		return finalHead;
+	}
+	
 }
 
 public class TestLinkedList {
 	public static void main(String[] args) {
 		LinkedList list = new LinkedList();
-		list.insert(15);
-		list.insert(14);
-		list.insert(13);
-		list.insert(12);
-		list.insert(11);
-		list.insert(10);
+		list.insert(5);
+		list.insert(6);
+		list.insert(3);
+		LinkedList list2 = new LinkedList();
+		list2.insert(8);
+		list2.insert(4);
+		list2.insert(2);
 
 		list.print();
+		list2.print();
+		
+		LinkedList l3 = new LinkedList();
+		l3.headPtr = list.addTwoLinkedLists(list, list2);
+		l3.print();
 
-		list.headPtr = list.reverseLinkedListInSets(list.headPtr, 3);
-		list.print();
+		//list.headPtr = list.reverseLinkedListInSets(list.headPtr, 3);
+		//list.print();
 
 		/*
 		 * list.reverseLinkedList(); list.print();
