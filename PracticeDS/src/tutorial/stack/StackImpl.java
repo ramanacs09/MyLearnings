@@ -49,12 +49,33 @@ class Stack {
 			return -1;
 		}
 	}
+	private boolean isOperand(char ch){
+		return (ch>='1' && ch<='9');
+	}
+	
+	public int evaluatePostfixExpression(String expression){
+		int length = expression.length();
+		for(int i=0;i<length;i++){
+			char ch = expression.charAt(i);
+			if(isOperand(ch)){
+				push(Integer.parseInt(ch+""));
+			} else {
+				switch(ch){
+				case '+' : push(pop() + pop()); break;
+				case '-' : push(pop() - pop()); break;
+				case '*' : push(pop() * pop()); break;
+				case '/' : push(pop() / pop()); break;
+				}
+			}
+		}
+		return top.data;
+	}
 }
 
 public class StackImpl {
 	public static void main(String[] args) {
 		Stack stack = new Stack();
-		stack.push(10);
+	/*	stack.push(10);
 		stack.push(11);
 		stack.push(12);
 		stack.push(13);
@@ -67,6 +88,9 @@ public class StackImpl {
 		System.out.println("Stack after popping element is:");
 		stack.printStack();
 		
-		System.out.println("Is stack empty?:"+stack.isEmpty());
+		System.out.println("Is stack empty?:"+stack.isEmpty());*/
+		String expression ="231*+9-";
+		int value = stack.evaluatePostfixExpression(expression);
+		System.out.println(value);
 	}
 }
